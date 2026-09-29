@@ -1,0 +1,97 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Video</title>
+	<script>
+	  let player=null, c=null, g=null, g2=null;
+      let vastus1tehtud=0
+      let vastus2tehtud=0
+      let vastus3tehtud=0
+      let vastus1 = 0
+      let vastus2 = 0
+      let vastus3 = 0
+      let laud = [
+        "", "", "",
+        "", "", "",
+        "", "", ""
+      ]
+	  function start(){
+	   player=document.getElementById("v1");
+	   c=document.getElementById("c1")
+	   g=c.getContext("2d");
+	   g2=document.getElementById("c2").getContext("2d");
+	   span1=document.getElementById("s1");
+	   navigator.mediaDevices.getUserMedia({video:true}).then((stream) => {
+         player.srcObject = stream;
+       });
+	   setInterval(capture, 1000);
+	  }
+	  function capture(){
+	     g.drawImage(player, 0, 0, c.width, c.height);
+         let cellWidth = c.width / 3;
+         let cellHeight = c.height / 3;
+
+         for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                let centerX = col * cellWidth + cellWidth / 2;
+                let centerY = row * cellHeight + cellHeight / 2;
+
+                let size = 20;
+
+                let x = centerX - size / 2
+                let y = centerY - size / 2
+
+                let d=g.getImageData(x, y, size, size);
+
+                let red = 0;
+                let green = 0;
+                let blue = 0;
+
+                for (let i = 0; i < d.data.length; i+=4) {
+                    red += d.data[i];
+                    green += d.data[i + 1];
+                    blue += d.data[i + 2];
+                }
+                let pixels = d.data.length / 4;
+
+                red /= pixels;
+                green /= pixels;
+                blue /= pixels;
+
+                let varv = leiaVarv(red, green, blue);
+
+                let number = row * 3 + col;
+
+                laud[number] = varv;
+            }
+         }
+         console.log(laud)
+
+        document.getElementById("mangulaud").innerHTML =
+            laud[0] + " | " + laud[1] + " | " + laud[2] + "<br>" +
+            laud[3] + " | " + laud[4] + " | " + laud[5] + "<br>" +
+            laud[6] + " | " + laud[7] + " | " + laud[8]; 
+	  }
+        function leiaVarv(red, green, blue) {
+            if (blue > red * 1.3 && blue > green * 1.2) {
+                return "O";
+        }
+            if (red > blue * 1.3 && red > green * 1.2 && green > blue * 1.1) {
+                return "X";
+        }
+        return "";
+    }
+	</script>
+  </head>
+  <body onload="start()">
+    <video id="v1" controls autoplay style="width: 45%"></video>
+	<canvas id="c1" width="320" height="240" style="width: 45%"/></canvas><br />	 
+	<canvas id="c2" width="40" height="40"/></canvas>	
+    <span id="s1"></span>
+    <p></p>
+    <span id="color">Näita värv</span>
+
+    <h2 id="mangulaud"></h2>
+	</body>
+</html>
