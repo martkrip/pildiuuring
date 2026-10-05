@@ -99,10 +99,9 @@
 
                     if (data.koht >= 0) {
                         laud[data.koht] = "O";
-                    }
 
                     document.getElementById("arvutiKaik").innerHTML = "Arvuti käik: ruut " + (data.koht + 1)
-
+                    }
                     document.getElementById("mangulaud").innerHTML =
                         laud[0] + " | " + laud[1] + " | " + laud[2] + "<br>" +
                         laud[3] + " | " + laud[4] + " | " + laud[5] + "<br>" +
@@ -123,6 +122,6 @@
     <span id="color">Show colour</span>
     <h2 id="mangulaud"></h2>
     <button onclick="saadaAndmed()">Saada andmed</button>
-	</body>
     <p id="arvutiKaik"></p>
+	</body>
 </html>
