@@ -83,7 +83,7 @@
         return "";
     }
         function saadaAndmed() {
-            fetch("https://script.google.com/macros/s/AKfycbzuGITHVql35y0bDP8dSaEJUPDX-4nfA4B708hBwnhiR7VwidjHF2p25DUteq9lsz68/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbzw53X5mH3vbCIqPLjMXOtPreaUB-tB34AcbFFST_wSZDUMfUGYqb34dSlVnAJzSnrY/exec", {
 
                 method: "POST",
                 
@@ -92,9 +92,19 @@
                 })
 
             })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    console.log("Server vastas:", data);
+                    console.log("Server valis koha:", data.koht);
+                    let koht = data.koht
+
+                    if (koht => 0) {
+                        laud[koht] = "O";
+                    }
+
+                    document.getElementById("mangulaud").innerHTML =
+                        laud[0] + " | " + laud[1] + " | " + laud[2] + "<br>" +
+                        laud[3] + " | " + laud[4] + " | " + laud[5] + "<br>" +
+                        laud[6] + " | " + laud[7] + " | " + laud[8]; 
             })
                 .catch(error => {
                     console.log("Viga:", error);
