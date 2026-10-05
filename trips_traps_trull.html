@@ -22,7 +22,7 @@
 	   g=c.getContext("2d");
 	   g2=document.getElementById("c2").getContext("2d");
 	   span1=document.getElementById("s1");
-	   navigator.mediaDevices.getUserMedia({video:true}).then((stream) => {
+	   navigator.mediaDevices.getUserMedia({video:{ facingMode: "environment"}}).then((stream) => {
          player.srcObject = stream;
        });
 	   setInterval(capture, 1000);
@@ -90,7 +90,7 @@
 	<canvas id="c2" width="40" height="40"/></canvas>	
     <span id="s1"></span>
     <p></p>
-    <span id="color">Näita värv</span>
+    <span id="color">Show colour</span>
 
     <h2 id="mangulaud"></h2>
 	</body>
