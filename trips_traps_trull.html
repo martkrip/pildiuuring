@@ -81,6 +81,24 @@
                 return "X";
         }
         return "";
+        function saadaAndmed() {
+            fetch("https://script.google.com/macros/s/AKfycbzuGITHVql35y0bDP8dSaEJUPDX-4nfA4B708hBwnhiR7VwidjHF2p25DUteq9lsz68/exec", {
+
+                method: "POST",
+                
+                body: JSON.stringify({
+                    laud: laud
+                })
+
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Server vastas:", data);
+            })
+                .catch(error => {
+                    console.log("Viga:", error);
+            })
+        }
     }
 	</script>
   </head>
@@ -91,7 +109,7 @@
     <span id="s1"></span>
     <p></p>
     <span id="color">Show colour</span>
-
     <h2 id="mangulaud"></h2>
+    <button onclick="saadaAndmed()">Saada andmed</button>
 	</body>
 </html>
